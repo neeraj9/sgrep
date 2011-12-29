@@ -1,0 +1,67 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(sgrep.h)
+dnl And the makefile.in
+AM_INIT_AUTOMAKE(sgrep, 1.94a) 
+
+dnl Checks for programs.
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_PROG_CPP
+AC_PROG_MAKE_SET
+AC_CYGWIN
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS(fcntl.h limits.h sys/time.h unistd.h sys/times.h sys/mman.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_PID_T
+AC_TYPE_SIZE_T
+
+dnl Checks for library functions.
+dnl I don't use AC_FUNC_MMAP since it is too strict. readonly mappings are
+dnl OK for sgrep, whether private or shared or whatever
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(mmap dup dup2 pipe fileno select strerror strtol times vsnprintf)
+
+dnl Compilation options
+
+dnl Check the preprocessor
+AC_ARG_WITH(preprocessor,  [  --with-preprocessor=COMMAND 
+                          Use preprocessor COMMAND [m4 -s]],
+,with_preprocessor="m4 -s"
+)
+echo "Using preprocessor '${with_preprocessor}'"
+
+dnl Check whether to enable assertions
+AC_ARG_ENABLE(assertions,[  --disable-assertions    Disable all assertions. Recommended only for
+                          benchmarking (currently).],
+,
+enable_assertions="1")
+if test "x${enable_assertions}" = "xno"; then 
+	echo "Disabling assertions."
+	AC_DEFINE(ENABLE_ASSERTIONS,0)
+else
+	echo "Enabling assertions."
+	AC_DEFINE(ENABLE_ASSERTIONS,1)
+fi
+
+dnl Check whether to disable assertions
+AC_ARG_ENABLE(memory-debug,[  --disable-memory-debug  Disable builtin memory leak tracing. Recommended 
+                          only for benchmarking (currently).],
+,
+enable_memory_debug="1")
+if test "x${enable_memory_debug}" = "xno"; then 
+	echo "Disabling memory leak and allocation debugging."
+	AC_DEFINE(MEMORY_DEBUG,0)
+else
+	echo "Enabling memory leak and allocation debugging."
+	AC_DEFINE(MEMORY_DEBUG,1)
+fi
+
+
+
+AM_CONFIG_HEADER(config.h)
+AC_OUTPUT(Makefile)

@@ -1,0 +1,22 @@
+Begin3
+Title:          sgrep - A tool for searching files for structured patterns
+Version:        0.99
+Entered-date:	30Apr96
+Description:	Sgrep is a convenient tool for making queries to almost 
+		any kind of text files with some well kown structure. 
+		These include programs, mail folders, news folders, 
+		HTML, SGML, etc... With relatively simple queries you 
+		can display mail messages by their subject or sender, 
+		extract titles or links or any regions from HTML files, 
+		function prototypes from C or make complex queries to 
+		SGML files based on the DTD of the file. 
+Keywords:       text structure SGML HTML grep search
+Author:		jjaakkol@cs.helsinki.fi (Jani Jaakkola)
+		kilpelai@cs.helsinki.fi (Pekka Kilpelainen)
+Maintained-by:  jjaakkol@cs.helsinki.fi (Jani Jaakkola)
+Primary-site:   ftp://ftp.cs.helsinki.fi/pub/Software/Local/Sgrep
+		72kB sgrep-0.99.tar.gz
+Alternate-site: sunsite.unc.edu /pub/Linux/utils/text
+Platforms:      any unix like OS
+Copying-policy: GPL
+End
